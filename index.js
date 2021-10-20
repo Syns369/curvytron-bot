@@ -1,7 +1,6 @@
 const puppeteer = require("puppeteer");
 const fs = require('fs/promises');
 
-
 async function start() {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -21,8 +20,6 @@ async function start() {
     const url = await page.url();
 
     console.log(url);
-
-    await page.screenshot({path: 'test.png', fullPage:true}); //screenshot
     
     console.log('ready');
     
@@ -41,22 +38,7 @@ async function start() {
         
         console.log(playerNumber + " " + ready);
     }
-    
-
     await browser.close();
-
-    // const photos = await page.$$eval("img", (imgs) => {
-    //     return imgs.map(x => x.src);
-    // })
-
-    // console.log(photos);
-
-    // for(const photo of photos) {
-    //     const imagepage = await page.goto(photo);
-    //     let path = photo.split('?').shift();
-    //     await fs.writeFile(path.split("/").pop(), await imagepage.buffer());
-    // }
-
 }
 
 start();
