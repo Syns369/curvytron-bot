@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const fs = require('fs/promises');
 
+
 async function start() {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -16,10 +17,19 @@ async function start() {
     
     await page.click("#profile > div.profile-form.ng-scope > div > div > button"); //confirm profile
     await new Promise(r => setTimeout(r, 500));
+    
+    await page.click(".icon-params"); //confirm profile
+    await new Promise(r => setTimeout(r, 500));
+    
+    await page.click("#open"); //confirm profile
+    await new Promise(r => setTimeout(r, 500));
 
     const url = await page.url();
-
+    const password = url.split("=").pop();
     console.log(url);
+    console.log(password);
+
+    await page.screenshot({path: 'test.png', fullPage:true}); //screenshot
     
     console.log('ready');
     
@@ -36,9 +46,25 @@ async function start() {
             break
         }
         
-        console.log(playerNumber + " " + ready);
+        // console.log(playerNumber + " " + ready);
     }
+    
+    console.log("party launch !");
+
     await browser.close();
+
+    // const photos = await page.$$eval("img", (imgs) => {
+    //     return imgs.map(x => x.src);
+    // })
+
+    // console.log(photos);
+
+    // for(const photo of photos) {
+    //     const imagepage = await page.goto(photo);
+    //     let path = photo.split('?').shift();
+    //     await fs.writeFile(path.split("/").pop(), await imagepage.buffer());
+    // }
+
 }
 
 start();
