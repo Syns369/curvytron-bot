@@ -18,10 +18,10 @@ async function start() {
     await page.click("#profile > div.profile-form.ng-scope > div > div > button"); //confirm profile
     await new Promise(r => setTimeout(r, 500));
     
-    await page.click(".icon-params"); //confirm profile
+    await page.click(".icon-params"); //open settings
     await new Promise(r => setTimeout(r, 500));
     
-    await page.click("#open"); //confirm profile
+    await page.click("#open"); //set room as private
     await new Promise(r => setTimeout(r, 500));
 
     const url = await page.url();
@@ -29,9 +29,9 @@ async function start() {
     console.log(url);
     console.log(password);
 
-    await page.screenshot({path: 'test.png', fullPage:true}); //screenshot
+    // await page.screenshot({path: 'test.png', fullPage:true}); //screenshot
     
-    console.log('ready');
+    console.log('ready, waiting for players');
     
     while (true) {
         const playerNumber = await page.$$eval(".player-name", (players) => {
