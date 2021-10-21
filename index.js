@@ -1,7 +1,6 @@
 const puppeteer = require("puppeteer");
 const fs = require('fs/promises');
 
-
 async function start() {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -25,13 +24,14 @@ async function start() {
     await new Promise(r => setTimeout(r, 500));
 
     const url = await page.url();
-    const password = url.split("=").pop();
     console.log(url);
-    console.log(password);
+
+    // const password = url.split("=").pop();
+    // console.log(password);
 
     // await page.screenshot({path: 'test.png', fullPage:true}); //screenshot
     
-    console.log('ready, waiting for players');
+    console.log('Ready, waiting for players ...');
     
     while (true) {
         const playerNumber = await page.$$eval(".player-name", (players) => {
@@ -49,21 +49,9 @@ async function start() {
         // console.log(playerNumber + " " + ready);
     }
     
-    console.log("party launch !");
+    console.log("Party launch !");
 
     await browser.close();
-
-    // const photos = await page.$$eval("img", (imgs) => {
-    //     return imgs.map(x => x.src);
-    // })
-
-    // console.log(photos);
-
-    // for(const photo of photos) {
-    //     const imagepage = await page.goto(photo);
-    //     let path = photo.split('?').shift();
-    //     await fs.writeFile(path.split("/").pop(), await imagepage.buffer());
-    // }
 
 }
 
